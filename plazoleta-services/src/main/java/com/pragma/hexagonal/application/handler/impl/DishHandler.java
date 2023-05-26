@@ -1,0 +1,48 @@
+package com.pragma.hexagonal.application.handler.impl;
+
+import com.pragma.hexagonal.application.dto.request.DishRequestDto;
+import com.pragma.hexagonal.application.dto.response.DishResponseDto;
+import com.pragma.hexagonal.application.handler.IDishHandler;
+import com.pragma.hexagonal.application.mapper.request.IDishRequestMapper;
+import com.pragma.hexagonal.application.mapper.response.IDishResponseMapper;
+import com.pragma.hexagonal.domain.model.DishModel;
+import com.pragma.hexagonal.domain.port.in.IDishServicePort;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+@Service
+@RequiredArgsConstructor
+public class DishHandler implements IDishHandler {
+
+    private final IDishServicePort dishServicePort;
+    private final IDishRequestMapper dishRequestMapper;
+    private final IDishResponseMapper dishResponseMapper;
+
+    @Override
+    public void save(DishRequestDto dishRequestDto) {
+        DishModel dishModel = dishRequestMapper.toModel(dishRequestDto);
+        dishServicePort.save(dishModel);
+    }
+
+    @Override
+    public void update(Long id, DishRequestDto dishRequestDto) {
+        DishModel dishModel = dishRequestMapper.toModel(dishRequestDto);
+        dishServicePort.update(id,dishModel);
+    }
+
+    @Override
+    public void updateEnableOrDisableDish(Long id, boolean flag) {
+       dishServicePort.updateEnableOrDisableDish(id,flag);
+    }
+
+    @Override
+    public DishResponseDto getDishById(Long id) {
+        return dishResponseMapper.toResponse(dishServicePort.getDishById(id));
+    }
+
+    @Override
+    public List<DishResponseDto> getAllDishes() {
+        return dishResponseMapper.toResponseList(dishServicePort.getAllDishes());
+    }
+}
