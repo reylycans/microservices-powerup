@@ -1,6 +1,6 @@
 package com.pragma.usuarios.infraestructure.port.in.web;
 
-import com.pragma.usuarios.application.dto.RolRequestDto;
+import com.pragma.usuarios.application.dto.request.RolRequestDto;
 import com.pragma.usuarios.application.handler.IRolHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

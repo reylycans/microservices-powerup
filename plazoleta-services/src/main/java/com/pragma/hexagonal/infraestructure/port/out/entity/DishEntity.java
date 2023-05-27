@@ -21,22 +21,22 @@ import java.math.BigDecimal;
 public class DishEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "dish_id",scale = 0,precision = 12)
+    @Column(name = "dish_id",scale = 0,precision = 12,nullable = false)
     private Long id;
 
-    @Column(name = "name",length = 20)
+    @Column(name = "name",length = 20,nullable = false)
     private String name;
 
-    @Column(name = "price",scale = 2, precision = 17)
+    @Column(name = "price",scale = 2, precision = 17,nullable = false)
     private BigDecimal price;
 
-    @Column(name = "description",length = 20)
+    @Column(name = "description",length = 20,nullable = false)
     private String description;
 
     @Column(name = "urlImage",length = 50)
     private String urlImage;
 
-    @Column(name = "asset",length = 50)
+    @Column(name = "asset",length = 50,nullable = false)
     private Boolean asset;
 
     @ManyToOne(fetch = FetchType.LAZY)

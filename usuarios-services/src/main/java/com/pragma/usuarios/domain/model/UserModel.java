@@ -4,7 +4,7 @@ public class UserModel {
     private Long id;
     private String name;
     private String lastName;
-    private String identityDocument;
+    private Long identityDocument;
     private String cellPhone;
     private String email;
     private String password;
@@ -34,11 +34,11 @@ public class UserModel {
         this.lastName = lastName;
     }
 
-    public String getIdentityDocument() {
+    public Long getIdentityDocument() {
         return identityDocument;
     }
 
-    public void setIdentityDocument(String identityDocument) {
+    public void setIdentityDocument(Long identityDocument) {
         this.identityDocument = identityDocument;
     }
 

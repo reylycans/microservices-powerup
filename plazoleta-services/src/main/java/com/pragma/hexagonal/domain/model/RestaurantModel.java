@@ -8,7 +8,7 @@ public class RestaurantModel {
     private String address;
     private String phone;
     private String urlLogo;
-    private UserModel user;
+    private Long ownerId;
 
     public Long getId() {
         return id;
@@ -58,11 +58,11 @@ public class RestaurantModel {
         this.urlLogo = urlLogo;
     }
 
-    public UserModel getUser() {
-        return user;
+    public Long getOwnerId() {
+        return ownerId;
     }
 
-    public void setUser(UserModel user) {
-        this.user = user;
+    public void setOwnerId(Long ownerId) {
+        this.ownerId = ownerId;
     }
 }

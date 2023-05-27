@@ -1,8 +1,8 @@
 package com.pragma.usuarios.application.handler.impl;
 
-import com.pragma.usuarios.application.dto.RolRequestDto;
+import com.pragma.usuarios.application.dto.request.RolRequestDto;
 import com.pragma.usuarios.application.handler.IRolHandler;
-import com.pragma.usuarios.application.mapper.IRolRequestMapper;
+import com.pragma.usuarios.application.mapper.request.IRolRequestMapper;
 import com.pragma.usuarios.domain.model.RolModel;
 import com.pragma.usuarios.domain.port.in.IRolServicePort;
 import lombok.AllArgsConstructor;

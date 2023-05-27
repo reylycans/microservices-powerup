@@ -15,28 +15,28 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryHandler implements ICategoryHandler {
 
-    private final ICategoryRequestMapper iCategoryRequestMapper;
-    private final ICategoryResponseMapper iCategoryResponseMapper;
-    private final ICategoryServicePort iCategoryServicePort;
+    private final ICategoryRequestMapper categoryRequestMapper;
+    private final ICategoryResponseMapper categoryResponseMapper;
+    private final ICategoryServicePort categoryServicePort;
 
     @Override
     public void save(CategoryRequestDto categoryRequestDto) {
-        CategoryModel categoryModel = iCategoryRequestMapper.toCategory(categoryRequestDto);
-        iCategoryServicePort.save(categoryModel);
+        CategoryModel categoryModel = categoryRequestMapper.toCategory(categoryRequestDto);
+        categoryServicePort.save(categoryModel);
     }
 
     @Override
     public CategoryResponseDto getCategoryById(Long id) {
-        return iCategoryResponseMapper.toResponse(iCategoryServicePort.getCategoryById(id));
+        return categoryResponseMapper.toResponse(categoryServicePort.getCategoryById(id));
     }
 
     @Override
     public List<CategoryResponseDto> getAllCategories() {
-        return iCategoryResponseMapper.toResponseList(iCategoryServicePort.getAllCategories());
+        return categoryResponseMapper.toResponseList(categoryServicePort.getAllCategories());
     }
 
     @Override
     public void deleteCategoryById(Long id) {
-       iCategoryServicePort.deleteCategoryById(id);
+       categoryServicePort.deleteCategoryById(id);
     }
 }

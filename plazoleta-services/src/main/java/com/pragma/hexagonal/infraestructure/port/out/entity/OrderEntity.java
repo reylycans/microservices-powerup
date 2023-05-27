@@ -1,6 +1,5 @@
 package com.pragma.hexagonal.infraestructure.port.out.entity;
 
-import com.pragma.hexagonal.domain.model.RestaurantModel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +21,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@Table(name = "order")
+@Table(name = "order_restaurant")
 public class OrderEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,15 +29,15 @@ public class OrderEntity {
     private Long id;
     private Long customerId;
 
-    @Column(name = "createAt",length = 20)
+    @Column(name = "createAt",length = 20,nullable = false)
     private LocalDate createAt;
 
-    @Column(name = "state",length = 20)
+    @Column(name = "state",length = 20,nullable = false)
     private String state;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id")
-    private RestaurantModel restaurant;
+    @JoinColumn(name = "restaurant_id",nullable = false)
+    private RestaurantEntity restaurant;
 
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<OrderDetailEntity> dish;

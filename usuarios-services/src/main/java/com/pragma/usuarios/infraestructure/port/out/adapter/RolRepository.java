@@ -6,6 +6,8 @@ import com.pragma.usuarios.infraestructure.port.out.mapper.IRolEntityMapper;
 import com.pragma.usuarios.infraestructure.port.out.repository.IRolJpaRepository;
 import lombok.AllArgsConstructor;
 
+import java.util.Optional;
+
 @AllArgsConstructor
 public class RolRepository implements IRolRepository {
 
@@ -15,5 +17,10 @@ public class RolRepository implements IRolRepository {
     @Override
     public void save(RolModel rolModel) {
         rolJpaRepository.save(rolEntityMapper.toEntity(rolModel));
+    }
+
+    @Override
+    public Optional<RolModel> findById(Long rolId) {
+        return Optional.of(rolEntityMapper.toModel(rolJpaRepository.findById(rolId).get()));
     }
 }

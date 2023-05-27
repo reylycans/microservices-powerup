@@ -1,7 +1,7 @@
-package com.pragma.usuarios.application.mapper;
+package com.pragma.usuarios.application.mapper.request;
 
-import com.pragma.usuarios.application.dto.RolRequestDto;
-import com.pragma.usuarios.application.dto.UserRequestDto;
+import com.pragma.usuarios.application.dto.request.RolRequestDto;
+import com.pragma.usuarios.application.dto.request.UserRequestDto;
 import com.pragma.usuarios.domain.model.RolModel;
 import com.pragma.usuarios.domain.model.UserModel;
 import javax.annotation.processing.Generated;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-05-25T22:25:11-0500",
+    date = "2023-05-27T17:58:00-0500",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.18 (Oracle Corporation)"
 )
 @Component

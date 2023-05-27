@@ -10,5 +10,5 @@ public class RestaurantRequestDto {
     private String address;
     private String phone;
     private String urlLogo;
-    private Long userId;
+    private Long ownerId;
 }

@@ -1,4 +1,4 @@
-package com.pragma.usuarios.application.dto;
+package com.pragma.usuarios.application.dto.request;
 
 import lombok.Data;
 
