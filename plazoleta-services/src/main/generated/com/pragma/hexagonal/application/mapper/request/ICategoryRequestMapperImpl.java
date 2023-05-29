@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-05-27T18:49:51-0500",
+    date = "2023-05-29T13:43:07-0500",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.18 (Oracle Corporation)"
 )
 @Component
@@ -21,6 +21,7 @@ public class ICategoryRequestMapperImpl implements ICategoryRequestMapper {
 
         CategoryModel categoryModel = new CategoryModel();
 
+        categoryModel.setId( categoryRequestDto.getId() );
         categoryModel.setName( categoryRequestDto.getName() );
         categoryModel.setDescription( categoryRequestDto.getDescription() );
 

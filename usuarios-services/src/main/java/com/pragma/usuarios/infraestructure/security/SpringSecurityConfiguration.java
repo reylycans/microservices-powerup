@@ -34,7 +34,7 @@ public class SpringSecurityConfiguration {
         return  http
                 .csrf().disable()
                 .authorizeRequests()
-                //.antMatchers("/api/v1/user/","/api/v1/user/client","/swagger-ui/**", "/swagger-resources/**","/v3/api-docs/**", "/v2/api-docs/**").permitAll()
+                //.antMatchers("/api/user/","/api/user/client","/swagger-ui/**", "/swagger-resources/**","/api-docs/**", "/api-docs/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

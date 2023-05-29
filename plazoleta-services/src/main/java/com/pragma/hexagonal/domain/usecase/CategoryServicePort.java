@@ -1,10 +1,12 @@
 package com.pragma.hexagonal.domain.usecase;
 
+import com.pragma.hexagonal.domain.exception.CategoryDomainException;
 import com.pragma.hexagonal.domain.model.CategoryModel;
 import com.pragma.hexagonal.domain.port.in.ICategoryServicePort;
 import com.pragma.hexagonal.domain.port.out.ICategoryRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CategoryServicePort implements ICategoryServicePort {
 
@@ -16,12 +18,19 @@ public class CategoryServicePort implements ICategoryServicePort {
 
     @Override
     public void save(CategoryModel categoryModel) {
-
+       if(categoryRepository.getCategoryByName(categoryModel.getName()).isPresent()){
+           throw new CategoryDomainException("Category already exist");
+       }
+       categoryRepository.save(categoryModel);
     }
 
     @Override
     public CategoryModel getCategoryById(Long id) {
-        return null;
+        Optional<CategoryModel> categoryModel =categoryRepository.getCategoryById(id);
+        if(!categoryModel.isPresent()){
+            throw new CategoryDomainException("Category not found");
+        }
+        return categoryModel.get();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package com.pragma.usuarios.application.dto.request;
 
-import com.pragma.usuarios.application.dto.request.RolRequestDto;
 import lombok.Data;
 
 import javax.validation.constraints.*;

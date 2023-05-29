@@ -3,11 +3,13 @@ package com.pragma.hexagonal.domain.port.out;
 import com.pragma.hexagonal.domain.model.DishModel;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IDishRepository {
     void save(DishModel dishModel);
-    void update(Long id, DishModel dishModel);
+    void update(DishModel dishModel);
     void updateEnableOrDisableDish(Long id,boolean flag);
-    DishModel getDishById(Long id);
+    Optional<DishModel> getDishById(Long id);
+    Optional<DishModel> getDishByName(String name);
     List<DishModel> getAllDishes();
 }

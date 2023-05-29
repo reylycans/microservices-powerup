@@ -30,13 +30,13 @@ public class DishEntity {
     @Column(name = "price",scale = 2, precision = 17,nullable = false)
     private BigDecimal price;
 
-    @Column(name = "description",length = 20,nullable = false)
+    @Column(name = "description",length = 200,nullable = false)
     private String description;
 
     @Column(name = "urlImage",length = 50)
     private String urlImage;
 
-    @Column(name = "asset",length = 50,nullable = false)
+    @Column(name = "asset",nullable = false)
     private Boolean asset;
 
     @ManyToOne(fetch = FetchType.LAZY)

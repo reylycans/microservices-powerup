@@ -8,7 +8,11 @@ import com.pragma.hexagonal.infraestructure.port.out.adapter.*;
 import com.pragma.hexagonal.infraestructure.port.out.feignclients.IUserFeignClient;
 import com.pragma.hexagonal.infraestructure.port.out.feignclients.adapter.UserFeignClientRepository;
 import com.pragma.hexagonal.infraestructure.port.out.feignclients.mapper.IUserFeignMapper;
+import com.pragma.hexagonal.infraestructure.port.out.mapper.ICategoryEntityMapper;
+import com.pragma.hexagonal.infraestructure.port.out.mapper.IDishEntityMapper;
 import com.pragma.hexagonal.infraestructure.port.out.mapper.IRestaurantEntityMapper;
+import com.pragma.hexagonal.infraestructure.port.out.repository.ICategoryJpaRepository;
+import com.pragma.hexagonal.infraestructure.port.out.repository.IDishJpaRepository;
 import com.pragma.hexagonal.infraestructure.port.out.repository.IUserJpaRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,16 +25,18 @@ public class BeanConfiguration {
         return new CategoryServicePort(categoryRepository);
     }
     @Bean
-    public ICategoryRepository categoryRepository(){
-        return new CategoryRepository();
+    public ICategoryRepository categoryRepository(ICategoryJpaRepository categoryJpaRepository,
+                                                  ICategoryEntityMapper categoryEntityMapper){
+        return new CategoryRepository(categoryJpaRepository,categoryEntityMapper);
     }
     @Bean
     public IDishServicePort dishServicePort(IDishRepository dishRepository){
         return new DishServicePort(dishRepository);
     }
     @Bean
-    public IDishRepository dishRepository(){
-        return new DishRepository();
+    public IDishRepository dishRepository(IDishJpaRepository dishJpaRepository,
+                                          IDishEntityMapper dishEntityMapper){
+        return new DishRepository(dishJpaRepository,dishEntityMapper);
     }
     @Bean
     public IOrderServicePort orderServicePort(IOrderRepository orderRepository){

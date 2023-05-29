@@ -1,9 +1,11 @@
 package com.pragma.hexagonal.application.handler.impl;
 
 import com.pragma.hexagonal.application.dto.request.DishRequestDto;
+import com.pragma.hexagonal.application.dto.request.DishUpdateRequestDto;
 import com.pragma.hexagonal.application.dto.response.DishResponseDto;
 import com.pragma.hexagonal.application.handler.IDishHandler;
 import com.pragma.hexagonal.application.mapper.request.IDishRequestMapper;
+import com.pragma.hexagonal.application.mapper.request.IDishUpdateRequestMapper;
 import com.pragma.hexagonal.application.mapper.response.IDishResponseMapper;
 import com.pragma.hexagonal.domain.model.DishModel;
 import com.pragma.hexagonal.domain.port.in.IDishServicePort;
@@ -18,16 +20,18 @@ public class DishHandler implements IDishHandler {
     private final IDishServicePort dishServicePort;
     private final IDishRequestMapper dishRequestMapper;
     private final IDishResponseMapper dishResponseMapper;
+    private final IDishUpdateRequestMapper dishUpdateRequestMapper;
 
     @Override
     public void save(DishRequestDto dishRequestDto) {
         DishModel dishModel = dishRequestMapper.toModel(dishRequestDto);
+        dishModel.setAsset(Boolean.TRUE);
         dishServicePort.save(dishModel);
     }
 
     @Override
-    public void update(Long id, DishRequestDto dishRequestDto) {
-        DishModel dishModel = dishRequestMapper.toModel(dishRequestDto);
+    public void update(Long id, DishUpdateRequestDto dishUpdateRequestDto) {
+        DishModel dishModel = dishUpdateRequestMapper.toUpdateModel(dishUpdateRequestDto);
         dishServicePort.update(id,dishModel);
     }
 

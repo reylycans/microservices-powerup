@@ -2,6 +2,10 @@ package com.pragma.hexagonal.infraestructure.port.in.web;
 
 import com.pragma.hexagonal.application.dto.request.RestaurantRequestDto;
 import com.pragma.hexagonal.application.handler.IRestaurantHandler;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +22,11 @@ public class RestaurantController {
 
     private final IRestaurantHandler restaurantHandler;
 
+    @Operation(summary = "add a new restaurant")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",description = "restaurant created",content = @Content),
+            @ApiResponse(responseCode = "409",description = "restaurant already exists",content = @Content)
+    })
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> save(@RequestBody RestaurantRequestDto restaurantRequestDto){

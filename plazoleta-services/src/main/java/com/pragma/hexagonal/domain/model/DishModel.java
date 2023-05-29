@@ -68,11 +68,11 @@ public class DishModel {
         this.restaurant = restaurant;
     }
 
-    public Boolean getEnable() {
+    public Boolean getAsset() {
         return asset;
     }
 
-    public void setEnable(Boolean asset) {
+    public void setAsset(Boolean asset) {
         this.asset = asset;
     }
 }
