@@ -19,8 +19,9 @@ public class UserRepository implements IUserRepository {
     private final IUserEntityMapper userEntityMapper;
 
     @Override
-    public void save(UserModel userModel) {
-        userJpaRepository.save(userEntityMapper.toEntity(userModel));
+    public UserModel save(UserModel userModel) {
+       return userEntityMapper.toUserModel(
+                  userJpaRepository.save(userEntityMapper.toEntity(userModel)));
     }
 
     @Override

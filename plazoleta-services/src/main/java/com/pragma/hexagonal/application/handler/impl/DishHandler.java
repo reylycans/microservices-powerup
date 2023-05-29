@@ -36,8 +36,8 @@ public class DishHandler implements IDishHandler {
     }
 
     @Override
-    public void updateEnableOrDisableDish(Long id, boolean flag) {
-       dishServicePort.updateEnableOrDisableDish(id,flag);
+    public void dishUpdateEnableOrDisable(Long id, boolean flag) {
+       dishServicePort.dishUpdateEnableOrDisable(id,flag);
     }
 
     @Override

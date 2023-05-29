@@ -16,4 +16,9 @@ public class Token implements IToken {
     public String getUserAuthenticationRol(String token) {
         return TokenUtils.getUsuarioAutenticadoRol(token.replace("Bearer",""));
     }
+
+    @Override
+    public Long getUserAuthenticationId(String token) {
+        return TokenUtils.getUsuarioAutenticadoId(token.replace("Bearer",""));
+    }
 }

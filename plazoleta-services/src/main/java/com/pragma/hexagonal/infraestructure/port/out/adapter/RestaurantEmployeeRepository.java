@@ -2,14 +2,20 @@ package com.pragma.hexagonal.infraestructure.port.out.adapter;
 
 import com.pragma.hexagonal.domain.model.RestaurantEmployeeModel;
 import com.pragma.hexagonal.domain.port.out.IRestaurantEmployeeRepository;
+import com.pragma.hexagonal.infraestructure.port.out.mapper.IRestaurantEmployeeEntityMapper;
+import com.pragma.hexagonal.infraestructure.port.out.repository.IRestaurantEmployeeJpaRepository;
+import lombok.AllArgsConstructor;
 
 import java.util.List;
-
+@AllArgsConstructor
 public class RestaurantEmployeeRepository implements IRestaurantEmployeeRepository {
+
+    private final IRestaurantEmployeeJpaRepository restaurantEmployeeJpaRepository;
+    private final IRestaurantEmployeeEntityMapper restaurantEmployeeEntityMapper;
 
     @Override
     public void save(RestaurantEmployeeModel restaurantEmployeeModel) {
-
+        restaurantEmployeeJpaRepository.save(restaurantEmployeeEntityMapper.toEntity(restaurantEmployeeModel));
     }
 
     @Override

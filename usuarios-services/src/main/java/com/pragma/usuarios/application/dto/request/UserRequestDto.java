@@ -17,10 +17,10 @@ public class UserRequestDto {
     private String lastName;
 
     @NotNull(message = "identityDocument is required")
-    @NotEmpty(message = "identityDocument is required")
     private Long identityDocument;
 
-    @Pattern(regexp = "^\\+?\\d{1,12}$", message = "The mobile number can contain a maximum of 13 characters and can contain the + symbol")
+    @NotNull(message = "lastName is required")
+    @NotEmpty(message = "lastName is required")
     private String cellPhone;
 
     @NotNull(message = "Email is required")

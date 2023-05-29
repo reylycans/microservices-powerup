@@ -39,6 +39,21 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @Operation(summary = "add a new employee")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",description = "owner created",content = @Content),
+            @ApiResponse(responseCode = "409",description = "owner already exists",content = @Content)
+    })
+    @PostMapping("/employee")
+    @PreAuthorize("hasAuthority('OWNER')")
+    public ResponseEntity<Void> saveEmployee(@Valid @RequestBody UserRequestDto userRequestDto, BindingResult result){
+        if(result.hasErrors()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        userHandler.saveEmployee(userRequestDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
     @Operation(summary = "get user by id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "user returned",content = @Content),

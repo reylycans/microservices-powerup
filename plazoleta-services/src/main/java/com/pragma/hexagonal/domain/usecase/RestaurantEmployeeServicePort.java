@@ -16,7 +16,7 @@ public class RestaurantEmployeeServicePort implements IRestaurantEmployeeService
 
     @Override
     public void save(RestaurantEmployeeModel restaurantEmployeeModel) {
-
+        restaurantEmployeeRepository.save(restaurantEmployeeModel);
     }
 
     @Override

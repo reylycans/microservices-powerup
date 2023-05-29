@@ -9,7 +9,7 @@ import java.util.List;
 public interface IDishHandler {
     void save(DishRequestDto dishRequestDto);
     void update(Long id, DishUpdateRequestDto dishUpdateRequestDto);
-    void updateEnableOrDisableDish(Long id,boolean flag);
+    void dishUpdateEnableOrDisable(Long id,boolean flag);
     DishResponseDto getDishById(Long id);
     List<DishResponseDto> getAllDishes();
 }

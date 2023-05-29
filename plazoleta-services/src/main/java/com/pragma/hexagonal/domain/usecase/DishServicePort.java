@@ -28,7 +28,7 @@ public class DishServicePort implements IDishServicePort {
     public void update(Long id, DishModel dishModel) {
        DishModel dishResult = getDishById(id);
        if(dishResult==null){
-           throw new DishDomainException("dish does not exist to update");
+           throw new DishDomainException("Dish does not exist to update");
        }
        dishResult.setDescription(dishModel.getDescription());
        dishResult.setPrice(dishModel.getPrice());
@@ -36,8 +36,13 @@ public class DishServicePort implements IDishServicePort {
     }
 
     @Override
-    public void updateEnableOrDisableDish(Long id, boolean flag) {
-
+    public void dishUpdateEnableOrDisable(Long id, Boolean enable) {
+        DishModel dishModel = getDishById(id);
+        if(dishModel==null){
+            throw new DishDomainException("Could not enable or disable the dish because it does not exist");
+        }
+        dishModel.setAsset(enable);
+        dishRepository.save(dishModel);
     }
 
     @Override

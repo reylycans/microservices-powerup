@@ -45,13 +45,27 @@ public class DishController {
             @ApiResponse(responseCode = "400",description = "invalid structure",content = @Content(mediaType = "application/json"))
     })
     @PutMapping
-    //@PreAuthorize("hasAuthority('OWNER')")
+    @PreAuthorize("hasAuthority('OWNER')")
     public ResponseEntity<Void> update(@RequestParam(value = "dishId") Long dishId,
                                        @Valid @RequestBody DishUpdateRequestDto dishUpdateRequestDto,BindingResult result){
         if(result.hasErrors()){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         dishHandler.update(dishId,dishUpdateRequestDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "update dish enable or disable")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "dish updated",content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404",description = "data not found",content = @Content(mediaType = "application/json"))
+    })
+    @PutMapping("/enableOrDisable")
+    @PreAuthorize("hasAuthority('OWNER')")
+    public ResponseEntity<Void> updateDishEnableOrDisable(@RequestParam(value = "dishId") Long dishId,
+                                                          @RequestParam(value = "asset") Boolean asset){
+
+        dishHandler.dishUpdateEnableOrDisable(dishId,asset);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

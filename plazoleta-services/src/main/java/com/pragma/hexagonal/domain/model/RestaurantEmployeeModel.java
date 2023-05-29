@@ -3,7 +3,7 @@ package com.pragma.hexagonal.domain.model;
 public class RestaurantEmployeeModel {
     private Long id;
     private RestaurantModel restaurant;
-    private UserModel user;
+    private Long userId;
 
     public Long getId() {
         return id;
@@ -21,11 +21,11 @@ public class RestaurantEmployeeModel {
         this.restaurant = restaurant;
     }
 
-    public UserModel getUser() {
-        return user;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setUser(UserModel user) {
-        this.user = user;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

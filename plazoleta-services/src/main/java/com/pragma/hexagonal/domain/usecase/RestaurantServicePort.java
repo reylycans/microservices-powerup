@@ -9,6 +9,7 @@ import com.pragma.hexagonal.domain.port.out.IRestaurantRepository;
 import com.pragma.hexagonal.domain.port.out.feignclients.IUserFeignClientRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public class RestaurantServicePort implements IRestaurantServicePort {
 
@@ -33,6 +34,15 @@ public class RestaurantServicePort implements IRestaurantServicePort {
     @Override
     public RestaurantModel getRestaurantById(Long id) {
         return null;
+    }
+
+    @Override
+    public RestaurantModel getRestaurantByOwner(Long ownerId) {
+        Optional<RestaurantModel> restaurantModel = restaurantRepository.getRestaurantByOwner(ownerId);
+        if(!restaurantModel.isPresent()){
+            throw new RestaurantDomainException("Restaurant not found");
+        }
+        return restaurantModel.get();
     }
 
     @Override

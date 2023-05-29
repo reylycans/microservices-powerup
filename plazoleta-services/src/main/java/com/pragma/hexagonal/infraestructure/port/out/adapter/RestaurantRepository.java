@@ -2,11 +2,14 @@ package com.pragma.hexagonal.infraestructure.port.out.adapter;
 
 import com.pragma.hexagonal.domain.model.RestaurantModel;
 import com.pragma.hexagonal.domain.port.out.IRestaurantRepository;
+import com.pragma.hexagonal.infraestructure.port.out.entity.RestaurantEntity;
 import com.pragma.hexagonal.infraestructure.port.out.mapper.IRestaurantEntityMapper;
 import com.pragma.hexagonal.infraestructure.port.out.repository.IUserJpaRepository;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
+
 @AllArgsConstructor
 public class RestaurantRepository implements IRestaurantRepository {
 
@@ -21,6 +24,15 @@ public class RestaurantRepository implements IRestaurantRepository {
     @Override
     public RestaurantModel getRestaurantById(Long id) {
         return null;
+    }
+
+    @Override
+    public Optional<RestaurantModel> getRestaurantByOwner(Long ownerId) {
+        Optional<RestaurantEntity> restaurantEntity = userJpaRepository.findOneByOwnerId(ownerId);
+        if(!restaurantEntity.isPresent()){
+            return Optional.empty();
+        }
+        return Optional.ofNullable(restaurantEntityMapper.toModel(restaurantEntity.get()));
     }
 
     @Override

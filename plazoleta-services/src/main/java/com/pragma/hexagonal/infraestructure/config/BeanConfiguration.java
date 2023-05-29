@@ -10,9 +10,11 @@ import com.pragma.hexagonal.infraestructure.port.out.feignclients.adapter.UserFe
 import com.pragma.hexagonal.infraestructure.port.out.feignclients.mapper.IUserFeignMapper;
 import com.pragma.hexagonal.infraestructure.port.out.mapper.ICategoryEntityMapper;
 import com.pragma.hexagonal.infraestructure.port.out.mapper.IDishEntityMapper;
+import com.pragma.hexagonal.infraestructure.port.out.mapper.IRestaurantEmployeeEntityMapper;
 import com.pragma.hexagonal.infraestructure.port.out.mapper.IRestaurantEntityMapper;
 import com.pragma.hexagonal.infraestructure.port.out.repository.ICategoryJpaRepository;
 import com.pragma.hexagonal.infraestructure.port.out.repository.IDishJpaRepository;
+import com.pragma.hexagonal.infraestructure.port.out.repository.IRestaurantEmployeeJpaRepository;
 import com.pragma.hexagonal.infraestructure.port.out.repository.IUserJpaRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -51,8 +53,9 @@ public class BeanConfiguration {
         return new RestaurantEmployeeServicePort(restaurantEmployeeRepository);
     }
     @Bean
-    public IRestaurantEmployeeRepository restaurantEmployeeRepository(){
-        return new RestaurantEmployeeRepository();
+    public IRestaurantEmployeeRepository restaurantEmployeeRepository(IRestaurantEmployeeJpaRepository restaurantEmployeeJpaRepository,
+                                                                      IRestaurantEmployeeEntityMapper restaurantEmployeeEntityMapper){
+        return new RestaurantEmployeeRepository(restaurantEmployeeJpaRepository,restaurantEmployeeEntityMapper);
     }
     @Bean
     public IRestaurantServicePort restaurantServicePort(IRestaurantRepository restaurantRepository,

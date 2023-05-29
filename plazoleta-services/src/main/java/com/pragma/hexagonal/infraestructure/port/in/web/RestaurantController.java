@@ -1,6 +1,7 @@
 package com.pragma.hexagonal.infraestructure.port.in.web;
 
 import com.pragma.hexagonal.application.dto.request.RestaurantRequestDto;
+import com.pragma.hexagonal.application.dto.response.RestaurantResponseDto;
 import com.pragma.hexagonal.application.handler.IRestaurantHandler;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -10,10 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/restaurant")
@@ -32,5 +30,10 @@ public class RestaurantController {
     public ResponseEntity<Void> save(@RequestBody RestaurantRequestDto restaurantRequestDto){
         restaurantHandler.save(restaurantRequestDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<RestaurantResponseDto> getRestaurantByOwner(@RequestParam(value = "ownerId") Long ownerId){
+        return ResponseEntity.ok(restaurantHandler.getRestaurantByOwner(ownerId));
     }
 }

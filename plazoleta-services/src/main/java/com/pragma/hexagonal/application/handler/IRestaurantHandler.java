@@ -8,6 +8,7 @@ import java.util.List;
 public interface IRestaurantHandler {
     void save(RestaurantRequestDto restaurantRequestDto);
     RestaurantResponseDto getRestaurantById(Long id);
+    RestaurantResponseDto getRestaurantByOwner(Long ownerId);
     List<RestaurantResponseDto> getAllRestaurants();
     List<RestaurantResponseDto> getAllRestaurantsWithPagination(Integer page,Integer size);
     void deleteRestaurantById(Long id);

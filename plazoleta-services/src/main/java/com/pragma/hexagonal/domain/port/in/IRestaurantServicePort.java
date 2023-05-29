@@ -7,6 +7,7 @@ import java.util.List;
 public interface IRestaurantServicePort {
     void save(RestaurantModel restaurantModel);
     RestaurantModel getRestaurantById(Long id);
+    RestaurantModel getRestaurantByOwner(Long ownerId);
     List<RestaurantModel> getAllRestaurants();
     List<RestaurantModel> getAllRestaurantsWithPagination(Integer page,Integer size);
     void deleteRestaurantById(Long id);

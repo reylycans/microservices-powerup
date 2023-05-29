@@ -7,7 +7,7 @@ import java.util.List;
 public interface IDishServicePort {
     void save(DishModel dishModel);
     void update(Long id, DishModel dishModel);
-    void updateEnableOrDisableDish(Long id,boolean flag);
+    void dishUpdateEnableOrDisable(Long id,Boolean enable);
     DishModel getDishById(Long id);
     List<DishModel> getAllDishes();
 }
