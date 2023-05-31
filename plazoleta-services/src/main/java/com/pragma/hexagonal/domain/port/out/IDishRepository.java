@@ -10,6 +10,7 @@ public interface IDishRepository {
     void update(DishModel dishModel);
     void updateEnableOrDisableDish(Long id,boolean flag);
     Optional<DishModel> getDishById(Long id);
+    List<DishModel> getAllDishByRestaurantId(Long restaurantId,Integer page,Integer size);
     Optional<DishModel> getDishByName(String name);
     List<DishModel> getAllDishes();
 }

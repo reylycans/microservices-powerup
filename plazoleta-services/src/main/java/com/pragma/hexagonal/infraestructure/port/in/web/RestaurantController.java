@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/restaurant")
 @AllArgsConstructor
@@ -32,8 +34,27 @@ public class RestaurantController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @Operation(summary = "get restaurant by owner")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "get restaurant",content = @Content),
+            @ApiResponse(responseCode = "404",description = "restaurant not found",content = @Content)
+    })
     @GetMapping
     public ResponseEntity<RestaurantResponseDto> getRestaurantByOwner(@RequestParam(value = "ownerId") Long ownerId){
         return ResponseEntity.ok(restaurantHandler.getRestaurantByOwner(ownerId));
     }
+
+    @Operation(summary = "get all restaurants with pagination")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "all restaurant returned paginated",content = @Content),
+            @ApiResponse(responseCode = "404",description = "restaurants not found",content = @Content)
+    })
+    @GetMapping("/getAllRestaurantPagination")
+    @PreAuthorize("hasAuthority('CUSTOMER')")
+    public ResponseEntity<List<RestaurantResponseDto>> getAllRestaurantPagination(@RequestParam(value = "page") Integer page,
+                                                                                  @RequestParam(value = "size") Integer size){
+        return ResponseEntity.ok(restaurantHandler.getAllRestaurantsWithPagination(page,size));
+    }
+
+
 }

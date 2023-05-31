@@ -52,7 +52,11 @@ public class RestaurantServicePort implements IRestaurantServicePort {
 
     @Override
     public List<RestaurantModel> getAllRestaurantsWithPagination(Integer page, Integer size) {
-        return null;
+        Optional<List<RestaurantModel>> restaurantModels = restaurantRepository.getAllRestaurantsWithPagination(page,size);
+        if(!restaurantModels.isPresent()){
+            throw new RestaurantDomainException("Could not find a list of restaurants");
+        }
+        return restaurantModels.get();
     }
 
     @Override

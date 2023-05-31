@@ -46,6 +46,11 @@ public class DishServicePort implements IDishServicePort {
     }
 
     @Override
+    public List<DishModel> getAllDishByRestaurantId(Long restaurantId, Integer page, Integer size) {
+        return dishRepository.getAllDishByRestaurantId(restaurantId,page,size);
+    }
+
+    @Override
     public DishModel getDishById(Long id) {
         Optional<DishModel> dishModel = dishRepository.getDishById(id);
         return dishModel.get();

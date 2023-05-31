@@ -10,6 +10,6 @@ public interface IRestaurantRepository {
     RestaurantModel getRestaurantById(Long id);
     Optional<RestaurantModel> getRestaurantByOwner(Long ownerId);
     List<RestaurantModel> getAllRestaurants();
-    List<RestaurantModel> getAllRestaurantsWithPagination(Integer page,Integer size);
+    Optional<List<RestaurantModel>> getAllRestaurantsWithPagination(Integer page,Integer size);
     void deleteRestaurantById(Long id);
 }

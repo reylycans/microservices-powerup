@@ -68,4 +68,19 @@ public class DishController {
         dishHandler.dishUpdateEnableOrDisable(dishId,asset);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @Operation(summary = "get all dish by restaurant")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "dish returned",content = @Content(mediaType = "application/json")),
+            @ApiResponse(responseCode = "404",description = "data not found",content = @Content(mediaType = "application/json"))
+    })
+    @PutMapping("/getAllDishRestaurant")
+    @PreAuthorize("hasAuthority('CUSTOMER')")
+    public ResponseEntity<Void> getAllDishByRestaurant(@RequestParam(value = "restaurantId") Long restaurantId,
+                                                       @RequestParam(value = "page") Integer page,
+                                                       @RequestParam(value = "size") Integer size){
+
+        dishHandler.getAllDishByRestaurantId(restaurantId,page,size);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }

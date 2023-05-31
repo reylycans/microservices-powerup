@@ -6,9 +6,13 @@ import com.pragma.hexagonal.infraestructure.port.out.entity.DishEntity;
 import com.pragma.hexagonal.infraestructure.port.out.mapper.IDishEntityMapper;
 import com.pragma.hexagonal.infraestructure.port.out.repository.IDishJpaRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class DishRepository implements IDishRepository {
@@ -38,6 +42,13 @@ public class DishRepository implements IDishRepository {
             return Optional.empty();
         }
         return Optional.ofNullable(dishEntityMapper.toModel(dishEntity.get()));
+    }
+
+    @Override
+    public List<DishModel> getAllDishByRestaurantId(Long restaurantId, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page,size, Sort.by("categorory"));
+        return dishJpaRepository.findAllByRestaurantId(restaurantId,pageable)
+                .stream().map(dishEntityMapper::toModel).collect(Collectors.toList());
     }
 
     @Override

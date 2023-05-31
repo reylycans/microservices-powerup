@@ -15,7 +15,7 @@ import com.pragma.hexagonal.infraestructure.port.out.mapper.IRestaurantEntityMap
 import com.pragma.hexagonal.infraestructure.port.out.repository.ICategoryJpaRepository;
 import com.pragma.hexagonal.infraestructure.port.out.repository.IDishJpaRepository;
 import com.pragma.hexagonal.infraestructure.port.out.repository.IRestaurantEmployeeJpaRepository;
-import com.pragma.hexagonal.infraestructure.port.out.repository.IUserJpaRepository;
+import com.pragma.hexagonal.infraestructure.port.out.repository.IRestaurantJpaRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -63,7 +63,7 @@ public class BeanConfiguration {
         return new RestaurantServicePort(restaurantRepository,userFeignClientRepository);
     }
     @Bean
-    public IRestaurantRepository restaurantRepository(IUserJpaRepository userJpaRepository,
+    public IRestaurantRepository restaurantRepository(IRestaurantJpaRepository userJpaRepository,
                                                       IRestaurantEntityMapper restaurantEntityMapper){
         return new RestaurantRepository(userJpaRepository,restaurantEntityMapper);
     }

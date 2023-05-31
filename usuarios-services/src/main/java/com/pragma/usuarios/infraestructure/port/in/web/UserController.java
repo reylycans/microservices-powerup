@@ -73,4 +73,18 @@ public class UserController {
     public ResponseEntity<UserResponseDto> getUserByEmail(@RequestParam(value = "email") String email){
         return ResponseEntity.ok(userHandler.getUserByEmail(email));
     }
+
+    @Operation(summary = "add a new customer")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201",description = "customer created",content = @Content),
+            @ApiResponse(responseCode = "409",description = "customer already exists",content = @Content)
+    })
+    @PostMapping("/customer")
+    public ResponseEntity<Void> saveCustomer(@Valid @RequestBody UserRequestDto userRequestDto, BindingResult result){
+        if(result.hasErrors()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        userHandler.save(userRequestDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }
