@@ -9,6 +9,7 @@ import com.pragma.hexagonal.domain.model.RestaurantModel;
 import com.pragma.hexagonal.domain.port.in.IRestaurantServicePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service
@@ -20,6 +21,7 @@ public class RestaurantHandler implements IRestaurantHandler {
     private final IRestaurantResponseMapper restaurantResponseMapper;
 
     @Override
+    @Transactional
     public void save(RestaurantRequestDto restaurantRequestDto) {
         RestaurantModel restaurantModel = resturantRequestMapper.toRestaurant(restaurantRequestDto);
         restaurantServicePort.save(restaurantModel);

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-05-29T16:34:52-0500",
+    date = "2023-06-08T09:23:06-0500",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.18 (Oracle Corporation)"
 )
 @Component
@@ -24,10 +24,13 @@ public class IUserFeignMapperImpl implements IUserFeignMapper {
         userModel.setId( userFeignDto.getId() );
         userModel.setName( userFeignDto.getName() );
         userModel.setLastName( userFeignDto.getLastName() );
-        userModel.setIdentityDocument( userFeignDto.getIdentityDocument() );
+        if ( userFeignDto.getIdentityDocument() != null ) {
+            userModel.setIdentityDocument( Long.parseLong( userFeignDto.getIdentityDocument() ) );
+        }
         userModel.setCellPhone( userFeignDto.getCellPhone() );
         userModel.setPassword( userFeignDto.getPassword() );
         userModel.setRol( userFeignDto.getRol() );
+        userModel.setEmail( userFeignDto.getEmail() );
 
         return userModel;
     }

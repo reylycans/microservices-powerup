@@ -26,23 +26,23 @@ public class DishServicePort implements IDishServicePort {
 
     @Override
     public void update(Long id, DishModel dishModel) {
-       DishModel dishResult = getDishById(id);
-       if(dishResult==null){
+        Optional<DishModel> dishResult = getDishById(id);
+       if(!dishResult.isPresent()){
            throw new DishDomainException("Dish does not exist to update");
        }
-       dishResult.setDescription(dishModel.getDescription());
-       dishResult.setPrice(dishModel.getPrice());
-       dishRepository.update(dishResult);
+       dishResult.get().setDescription(dishModel.getDescription());
+       dishResult.get().setPrice(dishModel.getPrice());
+       dishRepository.update(dishResult.get());
     }
 
     @Override
     public void dishUpdateEnableOrDisable(Long id, Boolean enable) {
-        DishModel dishModel = getDishById(id);
-        if(dishModel==null){
+        Optional<DishModel> dishModel = getDishById(id);
+        if(!dishModel.isPresent()){
             throw new DishDomainException("Could not enable or disable the dish because it does not exist");
         }
-        dishModel.setAsset(enable);
-        dishRepository.save(dishModel);
+        dishModel.get().setAsset(enable);
+        dishRepository.save(dishModel.get());
     }
 
     @Override
@@ -51,9 +51,9 @@ public class DishServicePort implements IDishServicePort {
     }
 
     @Override
-    public DishModel getDishById(Long id) {
+    public Optional<DishModel> getDishById(Long id) {
         Optional<DishModel> dishModel = dishRepository.getDishById(id);
-        return dishModel.get();
+        return dishModel;
     }
 
     @Override

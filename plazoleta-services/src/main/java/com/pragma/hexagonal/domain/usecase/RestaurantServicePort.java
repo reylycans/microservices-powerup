@@ -25,8 +25,8 @@ public class RestaurantServicePort implements IRestaurantServicePort {
     @Override
     public void save(RestaurantModel restaurantModel) {
         UserModel userModel = userFeignClientRepository.getUserById(restaurantModel.getOwnerId());
-        if(userModel==null) throw new RestaurantDomainException("restaurant owner to create does not exist");
-        if(!userModel.getRol().getName().equals(RolEnum.OWNER.getEtiqueta())) throw new RestaurantDomainException("user must be owner");
+        if(userModel==null) throw new RestaurantDomainException("Restaurant owner to create does not exist");
+        if(!userModel.getRol().getName().equals(RolEnum.OWNER.getEtiqueta())) throw new RestaurantDomainException("User must be owner");
 
         restaurantRepository.save(restaurantModel);
     }

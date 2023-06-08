@@ -9,8 +9,8 @@ import com.pragma.usuarios.domain.model.UserModel;
 import com.pragma.usuarios.domain.port.in.IUserServicePort;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 @Service
 @AllArgsConstructor

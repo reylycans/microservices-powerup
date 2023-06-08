@@ -4,8 +4,10 @@ public class UserModel {
     private Long id;
     private String name;
     private String lastName;
-    private String identityDocument;
+    private Long identityDocument;
     private String cellPhone;
+
+    private String email;
     private String password;
     private RolModel rol;
 
@@ -33,11 +35,11 @@ public class UserModel {
         this.lastName = lastName;
     }
 
-    public String getIdentityDocument() {
+    public Long getIdentityDocument() {
         return identityDocument;
     }
 
-    public void setIdentityDocument(String identityDocument) {
+    public void setIdentityDocument(Long identityDocument) {
         this.identityDocument = identityDocument;
     }
 
@@ -63,5 +65,13 @@ public class UserModel {
 
     public void setRol(RolModel rol) {
         this.rol = rol;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
