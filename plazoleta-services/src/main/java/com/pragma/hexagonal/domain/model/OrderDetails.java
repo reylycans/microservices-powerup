@@ -2,7 +2,7 @@ package com.pragma.hexagonal.domain.model;
 
 public class OrderDetails {
     private Long id;
-    private DishModel dishModel;
+    private DishModel dish;
     private Long amount;
 
     public Long getId() {
@@ -13,12 +13,12 @@ public class OrderDetails {
         this.id = id;
     }
 
-    public DishModel getDishModel() {
-        return dishModel;
+    public DishModel getDish() {
+        return dish;
     }
 
-    public void setDishModel(DishModel dishModel) {
-        this.dishModel = dishModel;
+    public void setDish(DishModel dish) {
+        this.dish = dish;
     }
 
     public Long getAmount() {
@@ -28,4 +28,5 @@ public class OrderDetails {
     public void setAmount(Long amount) {
         this.amount = amount;
     }
+
 }

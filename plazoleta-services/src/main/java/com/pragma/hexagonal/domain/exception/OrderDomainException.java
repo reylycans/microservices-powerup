@@ -1,9 +1,11 @@
 package com.pragma.hexagonal.domain.exception;
 
-public class CategoryDomainException extends RuntimeException{
+import lombok.Data;
 
+
+public class OrderDomainException extends RuntimeException{
     private String code;
-    public CategoryDomainException(String code){
+    public OrderDomainException(String code){
         this.code = code;
     }
 

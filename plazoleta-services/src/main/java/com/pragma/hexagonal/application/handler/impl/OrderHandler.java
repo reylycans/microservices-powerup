@@ -9,6 +9,8 @@ import com.pragma.hexagonal.domain.model.OrderModel;
 import com.pragma.hexagonal.domain.port.in.IOrderServicePort;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class OrderHandler implements IOrderHandler {
     private final IOrderResponseMapper orderResponseMapper;
 
     @Override
+    @Transactional
     public void save(OrderRequestDto orderRequestDto) {
         OrderModel orderModel = orderRequestMapper.toOrder(orderRequestDto);
         orderServicePort.save(orderModel);
@@ -32,8 +35,8 @@ public class OrderHandler implements IOrderHandler {
     }
 
     @Override
-    public void takeOrderForEmployee(Long orderId) {
-       orderServicePort.takeOrderForEmployee(orderId);
+    public void takeOrderForEmployee(Long orderId,String state) {
+       orderServicePort.takeOrderForEmployee(orderId,state);
     }
 
     @Override

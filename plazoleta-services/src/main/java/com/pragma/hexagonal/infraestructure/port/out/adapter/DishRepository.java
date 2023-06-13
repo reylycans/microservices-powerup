@@ -46,7 +46,7 @@ public class DishRepository implements IDishRepository {
 
     @Override
     public List<DishModel> getAllDishByRestaurantId(Long restaurantId, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page,size, Sort.by("categorory"));
+        Pageable pageable = PageRequest.of(page,size, Sort.by("category"));
         return dishJpaRepository.findAllByRestaurantId(restaurantId,pageable)
                 .stream().map(dishEntityMapper::toModel).collect(Collectors.toList());
     }

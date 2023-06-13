@@ -5,12 +5,13 @@ import com.pragma.hexagonal.domain.model.OrderDetails;
 import com.pragma.hexagonal.domain.model.OrderModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-08T09:23:05-0500",
+    date = "2023-06-13T12:49:05-0500",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.18 (Oracle Corporation)"
 )
 @Component
@@ -29,9 +30,9 @@ public class IOrderResponseMapperImpl implements IOrderResponseMapper {
         orderResponseDto.setCreateAt( orderModel.getCreateAt() );
         orderResponseDto.setState( orderModel.getState() );
         orderResponseDto.setRestaurant( orderModel.getRestaurant() );
-        List<OrderDetails> list = orderModel.getDish();
-        if ( list != null ) {
-            orderResponseDto.setDish( new ArrayList<OrderDetails>( list ) );
+        Set<OrderDetails> set = orderModel.getDishes();
+        if ( set != null ) {
+            orderResponseDto.setDishes( new ArrayList<OrderDetails>( set ) );
         }
 
         return orderResponseDto;

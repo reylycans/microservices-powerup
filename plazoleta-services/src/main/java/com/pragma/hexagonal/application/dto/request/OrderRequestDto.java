@@ -4,6 +4,8 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
+
 @Data
 public class OrderRequestDto {
     private Long id;
@@ -11,5 +13,5 @@ public class OrderRequestDto {
     private LocalDate createAt;
     private String state;
     private RestaurantRequestDto restaurant;
-    private List<OrderDetailsRequestDto> dish;
+    private Set<OrderDetailsRequestDto> dishes;
 }

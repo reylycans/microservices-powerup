@@ -2,14 +2,16 @@ package com.pragma.hexagonal.domain.model;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 public class OrderModel {
     private Long id;
     private Long customerId;
     private LocalDate createAt;
     private String state;
+    private RestaurantEmployeeModel restaurantEmployee;
     private RestaurantModel restaurant;
-    private List<OrderDetails> dish;
+    private Set<OrderDetails> dishes;
 
     public Long getId() {
         return id;
@@ -51,11 +53,19 @@ public class OrderModel {
         this.restaurant = restaurant;
     }
 
-    public List<OrderDetails> getDish() {
-        return dish;
+    public Set<OrderDetails> getDishes() {
+        return dishes;
     }
 
-    public void setDish(List<OrderDetails> dish) {
-        this.dish = dish;
+    public void setDishes(Set<OrderDetails> dishes) {
+        this.dishes = dishes;
+    }
+
+    public RestaurantEmployeeModel getRestaurantEmployee() {
+        return restaurantEmployee;
+    }
+
+    public void setRestaurantEmployee(RestaurantEmployeeModel restaurantEmployee) {
+        this.restaurantEmployee = restaurantEmployee;
     }
 }

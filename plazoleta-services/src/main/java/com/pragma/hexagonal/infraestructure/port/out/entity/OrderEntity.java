@@ -1,35 +1,26 @@
 package com.pragma.hexagonal.infraestructure.port.out.entity;
 
-import lombok.Getter;
-import lombok.Setter;
-
-
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Column;
-import javax.persistence.GenerationType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.CascadeType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Entity
-@Getter
-@Setter
-@Table(name = "order_restaurant")
-public class OrderEntity {
+@Table(name="orders",schema = "pragma")
+@Data
+public class OrderEntity implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id",scale = 0,precision = 12)
+    @Column(name = "order_id",scale = 0,precision = 12,insertable = false)
     private Long id;
+
+    @Column(name = "customer_id",scale = 0,precision = 12)
     private Long customerId;
 
-    @Column(name = "createAt",length = 20,nullable = false)
+    @Column(name = "create_at",length = 20,nullable = false)
     private LocalDate createAt;
 
     @Column(name = "state",length = 20,nullable = false)
@@ -39,6 +30,16 @@ public class OrderEntity {
     @JoinColumn(name = "restaurant_id",nullable = false)
     private RestaurantEntity restaurant;
 
-    @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<OrderDetailEntity> dish;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "chef_id")
+    private RestaurantEmployeeEntity restaurantEmployee;
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinTable(
+            name = "orders_dish_detail",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "order_detail_id"))
+    private Set<OrderDetailEntity> dishes;
+
+
 }

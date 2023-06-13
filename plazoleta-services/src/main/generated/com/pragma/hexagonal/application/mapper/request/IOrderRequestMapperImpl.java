@@ -1,19 +1,23 @@
 package com.pragma.hexagonal.application.mapper.request;
 
+import com.pragma.hexagonal.application.dto.request.CategoryRequestDto;
+import com.pragma.hexagonal.application.dto.request.DishRequestDto;
 import com.pragma.hexagonal.application.dto.request.OrderDetailsRequestDto;
 import com.pragma.hexagonal.application.dto.request.OrderRequestDto;
 import com.pragma.hexagonal.application.dto.request.RestaurantRequestDto;
+import com.pragma.hexagonal.domain.model.CategoryModel;
+import com.pragma.hexagonal.domain.model.DishModel;
 import com.pragma.hexagonal.domain.model.OrderDetails;
 import com.pragma.hexagonal.domain.model.OrderModel;
 import com.pragma.hexagonal.domain.model.RestaurantModel;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-08T09:23:07-0500",
+    date = "2023-06-13T12:49:05-0500",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.18 (Oracle Corporation)"
 )
 @Component
@@ -32,7 +36,7 @@ public class IOrderRequestMapperImpl implements IOrderRequestMapper {
         orderModel.setCreateAt( orderRequestDto.getCreateAt() );
         orderModel.setState( orderRequestDto.getState() );
         orderModel.setRestaurant( restaurantRequestDtoToRestaurantModel( orderRequestDto.getRestaurant() ) );
-        orderModel.setDish( orderDetailsRequestDtoListToOrderDetailsList( orderRequestDto.getDish() ) );
+        orderModel.setDishes( orderDetailsRequestDtoSetToOrderDetailsSet( orderRequestDto.getDishes() ) );
 
         return orderModel;
     }
@@ -55,6 +59,38 @@ public class IOrderRequestMapperImpl implements IOrderRequestMapper {
         return restaurantModel;
     }
 
+    protected CategoryModel categoryRequestDtoToCategoryModel(CategoryRequestDto categoryRequestDto) {
+        if ( categoryRequestDto == null ) {
+            return null;
+        }
+
+        CategoryModel categoryModel = new CategoryModel();
+
+        categoryModel.setId( categoryRequestDto.getId() );
+        categoryModel.setName( categoryRequestDto.getName() );
+        categoryModel.setDescription( categoryRequestDto.getDescription() );
+
+        return categoryModel;
+    }
+
+    protected DishModel dishRequestDtoToDishModel(DishRequestDto dishRequestDto) {
+        if ( dishRequestDto == null ) {
+            return null;
+        }
+
+        DishModel dishModel = new DishModel();
+
+        dishModel.setId( dishRequestDto.getId() );
+        dishModel.setName( dishRequestDto.getName() );
+        dishModel.setPrice( dishRequestDto.getPrice() );
+        dishModel.setDescription( dishRequestDto.getDescription() );
+        dishModel.setUrlImage( dishRequestDto.getUrlImage() );
+        dishModel.setCategory( categoryRequestDtoToCategoryModel( dishRequestDto.getCategory() ) );
+        dishModel.setRestaurant( restaurantRequestDtoToRestaurantModel( dishRequestDto.getRestaurant() ) );
+
+        return dishModel;
+    }
+
     protected OrderDetails orderDetailsRequestDtoToOrderDetails(OrderDetailsRequestDto orderDetailsRequestDto) {
         if ( orderDetailsRequestDto == null ) {
             return null;
@@ -63,21 +99,22 @@ public class IOrderRequestMapperImpl implements IOrderRequestMapper {
         OrderDetails orderDetails = new OrderDetails();
 
         orderDetails.setId( orderDetailsRequestDto.getId() );
+        orderDetails.setDish( dishRequestDtoToDishModel( orderDetailsRequestDto.getDish() ) );
         orderDetails.setAmount( orderDetailsRequestDto.getAmount() );
 
         return orderDetails;
     }
 
-    protected List<OrderDetails> orderDetailsRequestDtoListToOrderDetailsList(List<OrderDetailsRequestDto> list) {
-        if ( list == null ) {
+    protected Set<OrderDetails> orderDetailsRequestDtoSetToOrderDetailsSet(Set<OrderDetailsRequestDto> set) {
+        if ( set == null ) {
             return null;
         }
 
-        List<OrderDetails> list1 = new ArrayList<OrderDetails>( list.size() );
-        for ( OrderDetailsRequestDto orderDetailsRequestDto : list ) {
-            list1.add( orderDetailsRequestDtoToOrderDetails( orderDetailsRequestDto ) );
+        Set<OrderDetails> set1 = new LinkedHashSet<OrderDetails>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
+        for ( OrderDetailsRequestDto orderDetailsRequestDto : set ) {
+            set1.add( orderDetailsRequestDtoToOrderDetails( orderDetailsRequestDto ) );
         }
 
-        return list1;
+        return set1;
     }
 }

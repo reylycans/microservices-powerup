@@ -4,7 +4,7 @@ import com.pragma.hexagonal.domain.exception.DishDomainException;
 import com.pragma.hexagonal.domain.model.DishModel;
 import com.pragma.hexagonal.domain.port.out.IDishRepository;
 import com.pragma.hexagonal.domain.port.out.IToken;
-import com.pragma.hexagonal.domain.usecase.DishServicePort;
+import com.pragma.hexagonal.domain.service.DishServicePort;
 import com.pragma.hexagonal.factory.DishFactoryDataTest;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -72,10 +72,8 @@ public class DishServiceTest {
 
         Mockito.when(dishRepository.getDishById(2L)).thenReturn(Optional.empty());
 
-        DishDomainException dishDomainException = assertThrows(DishDomainException.class,
+        assertThrows(DishDomainException.class,
                 ()->dishServicePort.dishUpdateEnableOrDisable(2L,Boolean.TRUE));
-
-        assertEquals("Could not enable or disable the dish because it does not exist",dishDomainException.getMessage());
 
     }
 

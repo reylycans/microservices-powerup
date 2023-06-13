@@ -1,5 +1,6 @@
-package com.pragma.hexagonal.domain.usecase;
+package com.pragma.hexagonal.domain.service;
 
+import com.pragma.hexagonal.domain.enums.MessageErrorEnum;
 import com.pragma.hexagonal.domain.exception.CategoryDomainException;
 import com.pragma.hexagonal.domain.model.CategoryModel;
 import com.pragma.hexagonal.domain.port.in.ICategoryServicePort;
@@ -19,7 +20,7 @@ public class CategoryServicePort implements ICategoryServicePort {
     @Override
     public void save(CategoryModel categoryModel) {
        if(categoryRepository.getCategoryByName(categoryModel.getName()).isPresent()){
-           throw new CategoryDomainException("Category already exist");
+           throw new CategoryDomainException(MessageErrorEnum.CATEGORY_SAVE.getValue());
        }
        categoryRepository.save(categoryModel);
     }
@@ -28,7 +29,7 @@ public class CategoryServicePort implements ICategoryServicePort {
     public CategoryModel getCategoryById(Long id) {
         Optional<CategoryModel> categoryModel =categoryRepository.getCategoryById(id);
         if(!categoryModel.isPresent()){
-            throw new CategoryDomainException("Category not found");
+            throw new CategoryDomainException(MessageErrorEnum.CATEGORY_NOT_FOUND.getValue());
         }
         return categoryModel.get();
     }

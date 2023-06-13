@@ -12,7 +12,6 @@ public class DishRequestDto {
     private String name;
 
     @NotNull(message = "price is required")
-    @NotBlank(message = "price is required")
     private BigDecimal price;
 
     @NotNull(message = "description is required")
@@ -24,10 +23,8 @@ public class DishRequestDto {
     private String urlImage;
 
     @NotNull(message = "restaurant is required")
-    @NotBlank(message = "restaurant is required")
     private RestaurantRequestDto restaurant;
 
     @NotNull(message = "category is required")
-    @NotBlank(message = "category is required")
     private CategoryRequestDto category;
 }

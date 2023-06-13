@@ -13,5 +13,5 @@ public class OrderResponseDto {
     private LocalDate createAt;
     private String state;
     private RestaurantModel restaurant;
-    private List<OrderDetails> dish;
+    private List<OrderDetails> dishes;
 }

@@ -3,19 +3,13 @@ package com.pragma.hexagonal.infraestructure.config;
 import com.pragma.hexagonal.domain.port.in.*;
 import com.pragma.hexagonal.domain.port.out.*;
 import com.pragma.hexagonal.domain.port.out.feignclients.IUserFeignClientRepository;
-import com.pragma.hexagonal.domain.usecase.*;
+import com.pragma.hexagonal.domain.service.*;
 import com.pragma.hexagonal.infraestructure.port.out.adapter.*;
 import com.pragma.hexagonal.infraestructure.port.out.feignclients.IUserFeignClient;
 import com.pragma.hexagonal.infraestructure.port.out.feignclients.adapter.UserFeignClientRepository;
 import com.pragma.hexagonal.infraestructure.port.out.feignclients.mapper.IUserFeignMapper;
-import com.pragma.hexagonal.infraestructure.port.out.mapper.ICategoryEntityMapper;
-import com.pragma.hexagonal.infraestructure.port.out.mapper.IDishEntityMapper;
-import com.pragma.hexagonal.infraestructure.port.out.mapper.IRestaurantEmployeeEntityMapper;
-import com.pragma.hexagonal.infraestructure.port.out.mapper.IRestaurantEntityMapper;
-import com.pragma.hexagonal.infraestructure.port.out.repository.ICategoryJpaRepository;
-import com.pragma.hexagonal.infraestructure.port.out.repository.IDishJpaRepository;
-import com.pragma.hexagonal.infraestructure.port.out.repository.IRestaurantEmployeeJpaRepository;
-import com.pragma.hexagonal.infraestructure.port.out.repository.IRestaurantJpaRepository;
+import com.pragma.hexagonal.infraestructure.port.out.mapper.*;
+import com.pragma.hexagonal.infraestructure.port.out.repository.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -41,12 +35,13 @@ public class BeanConfiguration {
         return new DishRepository(dishJpaRepository,dishEntityMapper);
     }
     @Bean
-    public IOrderServicePort orderServicePort(IOrderRepository orderRepository){
-        return new OrderServicePort(orderRepository);
+    public IOrderServicePort orderServicePort(IOrderRepository orderRepository,IToken token,IRestaurantEmployeeRepository restaurantEmployeeRepository){
+        return new OrderServicePort(orderRepository,token,restaurantEmployeeRepository);
     }
     @Bean
-    public IOrderRepository orderRepository(){
-        return new OrderRepository();
+    public IOrderRepository orderRepository(IOrderJpaRepository orderJpaRepository,
+                                            IOrderEntityMapper orderEntityMapper){
+        return new OrderRepository(orderJpaRepository,orderEntityMapper);
     }
     @Bean
     public IRestaurantEmployeeServicePort restaurantEmployeeServicePort(IRestaurantEmployeeRepository restaurantEmployeeRepository){
@@ -71,5 +66,9 @@ public class BeanConfiguration {
     public IUserFeignClientRepository userFeignClientRepository(IUserFeignClient userFeignClient,
                                                                 IUserFeignMapper userFeignMapper){
         return new UserFeignClientRepository(userFeignClient,userFeignMapper);
+    }
+    @Bean
+    public IToken token(){
+        return new Token();
     }
 }

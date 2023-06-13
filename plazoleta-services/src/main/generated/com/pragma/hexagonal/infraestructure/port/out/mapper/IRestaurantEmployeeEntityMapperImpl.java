@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-08T09:23:06-0500",
+    date = "2023-06-13T12:49:05-0500",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.18 (Oracle Corporation)"
 )
 @Component
@@ -30,6 +30,21 @@ public class IRestaurantEmployeeEntityMapperImpl implements IRestaurantEmployeeE
         return restaurantEmployeeEntity;
     }
 
+    @Override
+    public RestaurantEmployeeModel toModel(RestaurantEmployeeEntity restaurantEmployeeEntity) {
+        if ( restaurantEmployeeEntity == null ) {
+            return null;
+        }
+
+        RestaurantEmployeeModel restaurantEmployeeModel = new RestaurantEmployeeModel();
+
+        restaurantEmployeeModel.setId( restaurantEmployeeEntity.getId() );
+        restaurantEmployeeModel.setRestaurant( restaurantEntityToRestaurantModel( restaurantEmployeeEntity.getRestaurant() ) );
+        restaurantEmployeeModel.setUserId( restaurantEmployeeEntity.getUserId() );
+
+        return restaurantEmployeeModel;
+    }
+
     protected RestaurantEntity restaurantModelToRestaurantEntity(RestaurantModel restaurantModel) {
         if ( restaurantModel == null ) {
             return null;
@@ -46,5 +61,23 @@ public class IRestaurantEmployeeEntityMapperImpl implements IRestaurantEmployeeE
         restaurantEntity.setOwnerId( restaurantModel.getOwnerId() );
 
         return restaurantEntity;
+    }
+
+    protected RestaurantModel restaurantEntityToRestaurantModel(RestaurantEntity restaurantEntity) {
+        if ( restaurantEntity == null ) {
+            return null;
+        }
+
+        RestaurantModel restaurantModel = new RestaurantModel();
+
+        restaurantModel.setId( restaurantEntity.getId() );
+        restaurantModel.setName( restaurantEntity.getName() );
+        restaurantModel.setNit( restaurantEntity.getNit() );
+        restaurantModel.setAddress( restaurantEntity.getAddress() );
+        restaurantModel.setPhone( restaurantEntity.getPhone() );
+        restaurantModel.setUrlLogo( restaurantEntity.getUrlLogo() );
+        restaurantModel.setOwnerId( restaurantEntity.getOwnerId() );
+
+        return restaurantModel;
     }
 }

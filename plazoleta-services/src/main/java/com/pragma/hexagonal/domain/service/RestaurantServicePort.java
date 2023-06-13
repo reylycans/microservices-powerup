@@ -1,5 +1,6 @@
-package com.pragma.hexagonal.domain.usecase;
+package com.pragma.hexagonal.domain.service;
 
+import com.pragma.hexagonal.domain.enums.MessageErrorEnum;
 import com.pragma.hexagonal.domain.enums.RolEnum;
 import com.pragma.hexagonal.domain.exception.RestaurantDomainException;
 import com.pragma.hexagonal.domain.model.RestaurantModel;
@@ -25,8 +26,9 @@ public class RestaurantServicePort implements IRestaurantServicePort {
     @Override
     public void save(RestaurantModel restaurantModel) {
         UserModel userModel = userFeignClientRepository.getUserById(restaurantModel.getOwnerId());
-        if(userModel==null) throw new RestaurantDomainException("Restaurant owner to create does not exist");
-        if(!userModel.getRol().getName().equals(RolEnum.OWNER.getEtiqueta())) throw new RestaurantDomainException("User must be owner");
+        if(userModel==null) throw new RestaurantDomainException(MessageErrorEnum.RESTAURANT_SAVE_OWNER_NOT_FOUND.getValue());
+        if(!userModel.getRol().getName().equals(RolEnum.OWNER.getEtiqueta()))
+            throw new RestaurantDomainException(MessageErrorEnum.RESTAURANT_USER_MUST_BE_OWNER.getValue());
 
         restaurantRepository.save(restaurantModel);
     }
@@ -40,7 +42,7 @@ public class RestaurantServicePort implements IRestaurantServicePort {
     public RestaurantModel getRestaurantByOwner(Long ownerId) {
         Optional<RestaurantModel> restaurantModel = restaurantRepository.getRestaurantByOwner(ownerId);
         if(!restaurantModel.isPresent()){
-            throw new RestaurantDomainException("Restaurant not found");
+            throw new RestaurantDomainException(MessageErrorEnum.RESTAURANT_NOT_FOUND.getValue());
         }
         return restaurantModel.get();
     }
@@ -54,7 +56,7 @@ public class RestaurantServicePort implements IRestaurantServicePort {
     public List<RestaurantModel> getAllRestaurantsWithPagination(Integer page, Integer size) {
         Optional<List<RestaurantModel>> restaurantModels = restaurantRepository.getAllRestaurantsWithPagination(page,size);
         if(!restaurantModels.isPresent()){
-            throw new RestaurantDomainException("Could not find a list of restaurants");
+            throw new RestaurantDomainException(MessageErrorEnum.RESTAURANT_COULD_NOT_FIND_A_LIST.getValue());
         }
         return restaurantModels.get();
     }

@@ -1,4 +1,4 @@
-package com.pragma.hexagonal.domain.usecase;
+package com.pragma.hexagonal.domain.service;
 
 import com.pragma.hexagonal.domain.model.RestaurantEmployeeModel;
 import com.pragma.hexagonal.domain.port.in.IRestaurantEmployeeServicePort;

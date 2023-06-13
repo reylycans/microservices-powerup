@@ -1,5 +1,6 @@
-package com.pragma.hexagonal.domain.usecase;
+package com.pragma.hexagonal.domain.service;
 
+import com.pragma.hexagonal.domain.enums.MessageErrorEnum;
 import com.pragma.hexagonal.domain.exception.DishDomainException;
 import com.pragma.hexagonal.domain.model.DishModel;
 import com.pragma.hexagonal.domain.port.in.IDishServicePort;
@@ -19,7 +20,7 @@ public class DishServicePort implements IDishServicePort {
     @Override
     public void save(DishModel dishModel) {
        if(dishRepository.getDishByName(dishModel.getName()).isPresent()){
-           throw new DishDomainException("Dish already exist");
+           throw new DishDomainException(MessageErrorEnum.DISH_SAVE_ALREADY_EXIST.getValue());
        }
        dishRepository.save(dishModel);
     }
@@ -28,7 +29,7 @@ public class DishServicePort implements IDishServicePort {
     public void update(Long id, DishModel dishModel) {
         Optional<DishModel> dishResult = getDishById(id);
        if(!dishResult.isPresent()){
-           throw new DishDomainException("Dish does not exist to update");
+           throw new DishDomainException(MessageErrorEnum.DISH_DOES_NOT_EXIST_TO_UPDATE.getValue());
        }
        dishResult.get().setDescription(dishModel.getDescription());
        dishResult.get().setPrice(dishModel.getPrice());
@@ -39,7 +40,7 @@ public class DishServicePort implements IDishServicePort {
     public void dishUpdateEnableOrDisable(Long id, Boolean enable) {
         Optional<DishModel> dishModel = getDishById(id);
         if(!dishModel.isPresent()){
-            throw new DishDomainException("Could not enable or disable the dish because it does not exist");
+            throw new DishDomainException(MessageErrorEnum.DISH_UPDATE_ENABLE_OR_DISABLE.getValue());
         }
         dishModel.get().setAsset(enable);
         dishRepository.save(dishModel.get());

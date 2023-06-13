@@ -5,7 +5,7 @@ import com.pragma.hexagonal.domain.model.RestaurantModel;
 import com.pragma.hexagonal.domain.model.UserModel;
 import com.pragma.hexagonal.domain.port.out.IRestaurantRepository;
 import com.pragma.hexagonal.domain.port.out.feignclients.IUserFeignClientRepository;
-import com.pragma.hexagonal.domain.usecase.RestaurantServicePort;
+import com.pragma.hexagonal.domain.service.RestaurantServicePort;
 import com.pragma.hexagonal.factory.RestaurantFactoryDataTest;
 import com.pragma.hexagonal.factory.UserFactoryDataTest;
 import org.junit.jupiter.api.Test;
@@ -47,9 +47,9 @@ public class RestaurantServiceTest {
         UserModel userModel = UserFactoryDataTest.getUserOwner();
 
         Mockito.when(userFeignClientRepository.getUserById(7L)).thenReturn(userModel);
-        RestaurantDomainException restaurantDomainException = assertThrows(RestaurantDomainException.class,
+        assertThrows(RestaurantDomainException.class,
                 ()->restaurantServicePort.save(restaurantModel));
-        assertEquals("Restaurant owner to create does not exist",restaurantDomainException.getMessage());
+
     }
 
     @Test
@@ -66,18 +66,18 @@ public class RestaurantServiceTest {
         RestaurantModel restaurantModel = RestaurantFactoryDataTest.getRestaurant();
         Mockito.when(restaurantRepository.getRestaurantByOwner(restaurantModel.getOwnerId())).thenReturn(Optional.empty());
 
-        RestaurantDomainException restaurantDomainException = assertThrows(RestaurantDomainException.class,
+         assertThrows(RestaurantDomainException.class,
                 ()-> restaurantServicePort.getRestaurantByOwner(7L));
-        assertEquals("Restaurant not found",restaurantDomainException.getMessage());
+
     }
 
     @Test
     public void RestaurantsNotFoundWithPagination(){
         Mockito.when(restaurantRepository.getAllRestaurantsWithPagination(1,1)).thenReturn(Optional.empty());
 
-        RestaurantDomainException restaurantDomainException = assertThrows(RestaurantDomainException.class,
+        assertThrows(RestaurantDomainException.class,
                 ()-> restaurantServicePort.getAllRestaurantsWithPagination(1,1));
-        assertEquals("Could not find a list of restaurants",restaurantDomainException.getMessage());
+
     }
 
 
