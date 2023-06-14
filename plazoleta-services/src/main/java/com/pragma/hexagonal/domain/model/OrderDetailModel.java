@@ -1,6 +1,6 @@
 package com.pragma.hexagonal.domain.model;
 
-public class OrderDetails {
+public class OrderDetailModel {
     private Long id;
     private DishModel dish;
     private Long amount;

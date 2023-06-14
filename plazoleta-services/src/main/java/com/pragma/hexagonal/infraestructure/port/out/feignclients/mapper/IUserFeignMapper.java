@@ -10,6 +10,6 @@ import org.mapstruct.ReportingPolicy;
         unmappedTargetPolicy = ReportingPolicy.IGNORE,
         unmappedSourcePolicy = ReportingPolicy.IGNORE)
 public interface IUserFeignMapper {
-    //@Mapping(target = "rol",source = "rol")
+
     UserModel toModel(UserFeignDto userFeignDto);
 }

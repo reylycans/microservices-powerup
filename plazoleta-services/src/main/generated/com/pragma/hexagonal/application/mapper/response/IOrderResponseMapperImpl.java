@@ -1,7 +1,7 @@
 package com.pragma.hexagonal.application.mapper.response;
 
 import com.pragma.hexagonal.application.dto.response.OrderResponseDto;
-import com.pragma.hexagonal.domain.model.OrderDetails;
+import com.pragma.hexagonal.domain.model.OrderDetailModel;
 import com.pragma.hexagonal.domain.model.OrderModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-13T12:49:05-0500",
+    date = "2023-06-14T15:46:35-0500",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.18 (Oracle Corporation)"
 )
 @Component
@@ -30,9 +30,9 @@ public class IOrderResponseMapperImpl implements IOrderResponseMapper {
         orderResponseDto.setCreateAt( orderModel.getCreateAt() );
         orderResponseDto.setState( orderModel.getState() );
         orderResponseDto.setRestaurant( orderModel.getRestaurant() );
-        Set<OrderDetails> set = orderModel.getDishes();
+        Set<OrderDetailModel> set = orderModel.getDishes();
         if ( set != null ) {
-            orderResponseDto.setDishes( new ArrayList<OrderDetails>( set ) );
+            orderResponseDto.setDishes( new ArrayList<OrderDetailModel>( set ) );
         }
 
         return orderResponseDto;

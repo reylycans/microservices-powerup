@@ -12,15 +12,16 @@ import org.springframework.context.annotation.Configuration;
 public class OpenApiConfiguration {
 
     @Bean
-    public OpenAPI openApi(@Value("${appDescription}") String appDescription,
-                           @Value("${appVersion}") String appVersion){
+    public OpenAPI customOpenApi(@Value("${appdescription}") String appDescription,
+                                 @Value("${appversion}") String appVersion){
         return new OpenAPI()
                 .components(new Components())
                 .info(new Info()
-                        .title("user service hexagonal")
+                        .title("Hexagonal Power-up plazoleta API")
                         .version(appVersion)
                         .description(appDescription)
                         .termsOfService("http://swagger.io/terms/")
-                        .license(new License().name("Apache 2.0").url("http://springdoc.org")));
+                        .license(new License().name("Apache 2.0").url("http://springdoc.org"))
+                );
     }
 }

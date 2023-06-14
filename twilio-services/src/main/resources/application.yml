@@ -1,0 +1,17 @@
+server:
+  port: 8083
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306
+    username: root
+    password: admin
+  application:
+    name: twilio-service
+
+appDescription: "Twilio"
+appVersion: "1.0.0"
+
+TWILIO_ACCOUNT_SID: "ACdd52a80ee7fd8314b0eb09a99bc9887b"
+TWILIO_AUTH_TOKEN: "6a668bc8ace93d8cd1831923f9a93911"
+TWILIO_FROM_PHONE_NUMBER: "+19894690639"

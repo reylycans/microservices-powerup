@@ -2,7 +2,7 @@ package com.pragma.hexagonal.infraestructure.port.out.mapper;
 
 import com.pragma.hexagonal.domain.model.CategoryModel;
 import com.pragma.hexagonal.domain.model.DishModel;
-import com.pragma.hexagonal.domain.model.OrderDetails;
+import com.pragma.hexagonal.domain.model.OrderDetailModel;
 import com.pragma.hexagonal.domain.model.OrderModel;
 import com.pragma.hexagonal.domain.model.RestaurantEmployeeModel;
 import com.pragma.hexagonal.domain.model.RestaurantModel;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-13T12:49:04-0500",
+    date = "2023-06-14T15:46:35-0500",
     comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.18 (Oracle Corporation)"
 )
 @Component
@@ -39,7 +39,7 @@ public class IOrderEntityMapperImpl implements IOrderEntityMapper {
         orderEntity.setState( orderModel.getState() );
         orderEntity.setRestaurant( restaurantModelToRestaurantEntity( orderModel.getRestaurant() ) );
         orderEntity.setRestaurantEmployee( restaurantEmployeeModelToRestaurantEmployeeEntity( orderModel.getRestaurantEmployee() ) );
-        orderEntity.setDishes( orderDetailsSetToOrderDetailEntitySet( orderModel.getDishes() ) );
+        orderEntity.setDishes( orderDetailModelSetToOrderDetailEntitySet( orderModel.getDishes() ) );
 
         return orderEntity;
     }
@@ -57,7 +57,7 @@ public class IOrderEntityMapperImpl implements IOrderEntityMapper {
         orderModel.setCreateAt( orderEntity.getCreateAt() );
         orderModel.setState( orderEntity.getState() );
         orderModel.setRestaurant( restaurantEntityToRestaurantModel( orderEntity.getRestaurant() ) );
-        orderModel.setDishes( orderDetailEntitySetToOrderDetailsSet( orderEntity.getDishes() ) );
+        orderModel.setDishes( orderDetailEntitySetToOrderDetailModelSet( orderEntity.getDishes() ) );
         orderModel.setRestaurantEmployee( restaurantEmployeeEntityToRestaurantEmployeeModel( orderEntity.getRestaurantEmployee() ) );
 
         return orderModel;
@@ -128,28 +128,28 @@ public class IOrderEntityMapperImpl implements IOrderEntityMapper {
         return dishEntity;
     }
 
-    protected OrderDetailEntity orderDetailsToOrderDetailEntity(OrderDetails orderDetails) {
-        if ( orderDetails == null ) {
+    protected OrderDetailEntity orderDetailModelToOrderDetailEntity(OrderDetailModel orderDetailModel) {
+        if ( orderDetailModel == null ) {
             return null;
         }
 
         OrderDetailEntity orderDetailEntity = new OrderDetailEntity();
 
-        orderDetailEntity.setId( orderDetails.getId() );
-        orderDetailEntity.setDish( dishModelToDishEntity( orderDetails.getDish() ) );
-        orderDetailEntity.setAmount( orderDetails.getAmount() );
+        orderDetailEntity.setId( orderDetailModel.getId() );
+        orderDetailEntity.setDish( dishModelToDishEntity( orderDetailModel.getDish() ) );
+        orderDetailEntity.setAmount( orderDetailModel.getAmount() );
 
         return orderDetailEntity;
     }
 
-    protected Set<OrderDetailEntity> orderDetailsSetToOrderDetailEntitySet(Set<OrderDetails> set) {
+    protected Set<OrderDetailEntity> orderDetailModelSetToOrderDetailEntitySet(Set<OrderDetailModel> set) {
         if ( set == null ) {
             return null;
         }
 
         Set<OrderDetailEntity> set1 = new LinkedHashSet<OrderDetailEntity>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
-        for ( OrderDetails orderDetails : set ) {
-            set1.add( orderDetailsToOrderDetailEntity( orderDetails ) );
+        for ( OrderDetailModel orderDetailModel : set ) {
+            set1.add( orderDetailModelToOrderDetailEntity( orderDetailModel ) );
         }
 
         return set1;
@@ -206,28 +206,28 @@ public class IOrderEntityMapperImpl implements IOrderEntityMapper {
         return dishModel;
     }
 
-    protected OrderDetails orderDetailEntityToOrderDetails(OrderDetailEntity orderDetailEntity) {
+    protected OrderDetailModel orderDetailEntityToOrderDetailModel(OrderDetailEntity orderDetailEntity) {
         if ( orderDetailEntity == null ) {
             return null;
         }
 
-        OrderDetails orderDetails = new OrderDetails();
+        OrderDetailModel orderDetailModel = new OrderDetailModel();
 
-        orderDetails.setId( orderDetailEntity.getId() );
-        orderDetails.setDish( dishEntityToDishModel( orderDetailEntity.getDish() ) );
-        orderDetails.setAmount( orderDetailEntity.getAmount() );
+        orderDetailModel.setId( orderDetailEntity.getId() );
+        orderDetailModel.setDish( dishEntityToDishModel( orderDetailEntity.getDish() ) );
+        orderDetailModel.setAmount( orderDetailEntity.getAmount() );
 
-        return orderDetails;
+        return orderDetailModel;
     }
 
-    protected Set<OrderDetails> orderDetailEntitySetToOrderDetailsSet(Set<OrderDetailEntity> set) {
+    protected Set<OrderDetailModel> orderDetailEntitySetToOrderDetailModelSet(Set<OrderDetailEntity> set) {
         if ( set == null ) {
             return null;
         }
 
-        Set<OrderDetails> set1 = new LinkedHashSet<OrderDetails>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
+        Set<OrderDetailModel> set1 = new LinkedHashSet<OrderDetailModel>( Math.max( (int) ( set.size() / .75f ) + 1, 16 ) );
         for ( OrderDetailEntity orderDetailEntity : set ) {
-            set1.add( orderDetailEntityToOrderDetails( orderDetailEntity ) );
+            set1.add( orderDetailEntityToOrderDetailModel( orderDetailEntity ) );
         }
 
         return set1;

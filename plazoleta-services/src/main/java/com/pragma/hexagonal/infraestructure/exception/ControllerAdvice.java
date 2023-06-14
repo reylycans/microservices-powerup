@@ -53,6 +53,10 @@ public class ControllerAdvice {
                return MessageErrorEnum.ORDER_NO_FOUND_IN_PENDING_STATUS.getMessage();
            case "O-06":
                return MessageErrorEnum.ORDER_EMPLOYEE_NOT_MATCH_RESTAURANT.getMessage();
+           case "O-07":
+               return MessageErrorEnum.ORDER_INVALID_PIN.getMessage();
+           case "O-'8":
+               return MessageErrorEnum.ORDER_CANCELED_MESSAGE.getMessage();
            case "R-01":
                return MessageErrorEnum.RESTAURANT_SAVE_OWNER_NOT_FOUND.getMessage();
            case "R-02":

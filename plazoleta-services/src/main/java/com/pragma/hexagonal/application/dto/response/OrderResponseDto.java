@@ -1,6 +1,6 @@
 package com.pragma.hexagonal.application.dto.response;
 
-import com.pragma.hexagonal.domain.model.OrderDetails;
+import com.pragma.hexagonal.domain.model.OrderDetailModel;
 import com.pragma.hexagonal.domain.model.RestaurantModel;
 import lombok.Data;
 
@@ -13,5 +13,5 @@ public class OrderResponseDto {
     private LocalDate createAt;
     private String state;
     private RestaurantModel restaurant;
-    private List<OrderDetails> dishes;
+    private List<OrderDetailModel> dishes;
 }

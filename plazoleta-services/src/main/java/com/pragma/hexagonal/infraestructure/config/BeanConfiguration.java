@@ -2,11 +2,14 @@ package com.pragma.hexagonal.infraestructure.config;
 
 import com.pragma.hexagonal.domain.port.in.*;
 import com.pragma.hexagonal.domain.port.out.*;
+import com.pragma.hexagonal.domain.port.out.feignclients.ITwilioFeignClientRepository;
 import com.pragma.hexagonal.domain.port.out.feignclients.IUserFeignClientRepository;
 import com.pragma.hexagonal.domain.service.*;
 import com.pragma.hexagonal.infraestructure.port.out.adapter.*;
+import com.pragma.hexagonal.infraestructure.port.out.feignclients.ITwilioFeignClient;
 import com.pragma.hexagonal.infraestructure.port.out.feignclients.IUserFeignClient;
 import com.pragma.hexagonal.infraestructure.port.out.feignclients.adapter.UserFeignClientRepository;
+import com.pragma.hexagonal.infraestructure.port.out.feignclients.mapper.IMessageFeignMapper;
 import com.pragma.hexagonal.infraestructure.port.out.feignclients.mapper.IUserFeignMapper;
 import com.pragma.hexagonal.infraestructure.port.out.mapper.*;
 import com.pragma.hexagonal.infraestructure.port.out.repository.*;
@@ -35,8 +38,10 @@ public class BeanConfiguration {
         return new DishRepository(dishJpaRepository,dishEntityMapper);
     }
     @Bean
-    public IOrderServicePort orderServicePort(IOrderRepository orderRepository,IToken token,IRestaurantEmployeeRepository restaurantEmployeeRepository){
-        return new OrderServicePort(orderRepository,token,restaurantEmployeeRepository);
+    public IOrderServicePort orderServicePort(IOrderRepository orderRepository,IToken token,
+                                              IRestaurantEmployeeRepository restaurantEmployeeRepository,
+                                              ITwilioFeignClientRepository twilioFeignClientRepository){
+        return new OrderServicePort(orderRepository,token,restaurantEmployeeRepository,twilioFeignClientRepository);
     }
     @Bean
     public IOrderRepository orderRepository(IOrderJpaRepository orderJpaRepository,
@@ -70,5 +75,10 @@ public class BeanConfiguration {
     @Bean
     public IToken token(){
         return new Token();
+    }
+
+    @Bean
+    public ITwilioFeignClientRepository twilioFeignClientRepository(ITwilioFeignClient twilioFeignClient, IMessageFeignMapper messageFeignMapper){
+        return new TwilioFeignClientRepository(twilioFeignClient,messageFeignMapper);
     }
 }

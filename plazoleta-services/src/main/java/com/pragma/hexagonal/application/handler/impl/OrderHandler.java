@@ -35,11 +35,13 @@ public class OrderHandler implements IOrderHandler {
     }
 
     @Override
+    @Transactional
     public void takeOrderForEmployee(Long orderId,String state) {
        orderServicePort.takeOrderForEmployee(orderId,state);
     }
 
     @Override
+    @Transactional
     public void notifyOrderReady(Long orderId) {
         orderServicePort.notifyOrderReady(orderId);
     }

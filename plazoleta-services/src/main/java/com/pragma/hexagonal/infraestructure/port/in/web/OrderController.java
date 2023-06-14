@@ -64,4 +64,41 @@ public class OrderController {
         orderHandler.takeOrderForEmployee(orderId,state);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @Operation(summary = "notify order ready")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "notify order",content = @Content),
+            @ApiResponse(responseCode = "400",description = "order not found",content = @Content)
+    })
+    @PutMapping("/notify")
+    @PreAuthorize("hasAuthority('EMPLOYEE')")
+    public ResponseEntity<Void> notifyOrderReady(@RequestParam(value = "orderId") Long orderId){
+        orderHandler.notifyOrderReady(orderId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "delivery order")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "delivery order",content = @Content),
+            @ApiResponse(responseCode = "400",description = "order not found",content = @Content)
+    })
+    @PutMapping("/delivery")
+    @PreAuthorize("hasAuthority('EMPLOYEE')")
+    public ResponseEntity<Void> deliverOrder(@RequestParam(value = "orderId") Long orderId,
+                                             @RequestParam(value = "pin") String pin){
+        orderHandler.deliverOrder(orderId,pin);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "cancel order")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",description = "cancel order",content = @Content),
+            @ApiResponse(responseCode = "400",description = "order not found",content = @Content)
+    })
+    @PutMapping("/cancel")
+    @PreAuthorize("hasAuthority('CUSTOMER')")
+    public ResponseEntity<Void> cancelOrder(@RequestParam(value = "orderId") Long orderId){
+        orderHandler.cancelOrder(orderId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
 }

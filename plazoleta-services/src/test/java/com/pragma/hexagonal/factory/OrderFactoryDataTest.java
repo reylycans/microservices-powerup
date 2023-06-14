@@ -1,7 +1,7 @@
 package com.pragma.hexagonal.factory;
 
 import com.pragma.hexagonal.domain.enums.StateEnum;
-import com.pragma.hexagonal.domain.model.OrderDetails;
+import com.pragma.hexagonal.domain.model.OrderDetailModel;
 import com.pragma.hexagonal.domain.model.OrderModel;
 
 
@@ -39,9 +39,9 @@ public class OrderFactoryDataTest {
         return states;
     }
 
-    public static Set<OrderDetails> getDishes(){
-        Set<OrderDetails> orderDetailsSet = new HashSet<>();
-        OrderDetails orderDetails = new OrderDetails();
+    public static Set<OrderDetailModel> getDishes(){
+        Set<OrderDetailModel> orderDetailsSet = new HashSet<>();
+        OrderDetailModel orderDetails = new OrderDetailModel();
         orderDetails.setDish(DishFactoryDataTest.getDish());
         orderDetails.setAmount(5L);
         orderDetailsSet.add(orderDetails);
