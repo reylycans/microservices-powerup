@@ -6,6 +6,7 @@ import com.pragma.hexagonal.domain.model.OrderModel;
 import com.pragma.hexagonal.domain.port.out.IOrderRepository;
 import com.pragma.hexagonal.domain.port.out.IRestaurantEmployeeRepository;
 import com.pragma.hexagonal.domain.port.out.IToken;
+import com.pragma.hexagonal.domain.port.out.feignclients.ITwilioFeignClientRepository;
 import com.pragma.hexagonal.domain.service.OrderServicePort;
 import com.pragma.hexagonal.factory.OrderFactoryDataTest;
 import com.pragma.hexagonal.factory.RestaurantFactoryDataTest;
@@ -15,6 +16,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -29,6 +32,8 @@ public class OrderServiceTest {
     IToken token;
     @Mock
     IRestaurantEmployeeRepository restaurantEmployeeRepository;
+    @Mock
+    ITwilioFeignClientRepository twilioFeignClientRepository;
 
 
     @Test
@@ -75,6 +80,48 @@ public class OrderServiceTest {
 
         assertThrows(OrderDomainException.class,()->orderServicePort.takeOrderForEmployee(1L,StateEnum.PREPARATION.toString()));
 
+    }
+
+    @Test
+    public void takeOrderForEmployee(){
+        Mockito.when(token.getBearerToken()).thenReturn("validToken");
+        Mockito.when(token.getUserAuthenticateId("validToken")).thenReturn(23L);
+
+        Mockito.when(restaurantEmployeeRepository.getRestaurantEmployeeById(23L)).
+                thenReturn(RestaurantFactoryDataTest.getRestaurantEmployee());
+
+        Mockito.when(orderRepository.findOrderByIdAndState(1L,StateEnum.PENDING.toString()))
+                                                          .thenReturn(Optional.of(OrderFactoryDataTest.getOrder()));
+
+        orderServicePort.takeOrderForEmployee(1L,StateEnum.PREPARATION.toString());
+    }
+
+    @Test
+    public void notifyOrderReady(){
+        Mockito.when(token.getBearerToken()).thenReturn("validToken");
+        Mockito.when(token.getUserAuthenticateId("validToken")).thenReturn(23L);
+
+        Mockito.when(restaurantEmployeeRepository.getRestaurantEmployeeById(23L)).
+                thenReturn(RestaurantFactoryDataTest.getRestaurantEmployee());
+
+        Mockito.when(orderRepository.findOrderByIdAndState(1L,StateEnum.PREPARATION.toString()))
+                .thenReturn(Optional.of(OrderFactoryDataTest.getOrderWithId()));
+
+        orderServicePort.notifyOrderReady(1L);
+    }
+
+    @Test
+    public void deliverOrder(){
+        Mockito.when(token.getBearerToken()).thenReturn("validToken");
+        Mockito.when(token.getUserAuthenticateId("validToken")).thenReturn(23L);
+
+        Mockito.when(restaurantEmployeeRepository.getRestaurantEmployeeById(23L)).
+                thenReturn(RestaurantFactoryDataTest.getRestaurantEmployee());
+
+        Mockito.when(orderRepository.findOrderByIdAndState(1L,StateEnum.READY.toString()))
+                .thenReturn(Optional.of(OrderFactoryDataTest.getOrderWithId()));
+
+        orderServicePort.deliverOrder(1L,"12412023-06-11");
     }
 
 

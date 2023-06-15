@@ -5,6 +5,7 @@ import com.pragma.hexagonal.domain.model.OrderDetailModel;
 import com.pragma.hexagonal.domain.model.OrderModel;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,6 +17,17 @@ public class OrderFactoryDataTest {
         OrderModel orderModel = new OrderModel();
         orderModel.setCustomerId(24L);
         orderModel.setRestaurant(RestaurantFactoryDataTest.getRestaurant());
+        orderModel.setDishes(getDishes());
+
+        return orderModel;
+    }
+
+    public static OrderModel getOrderWithId(){
+        OrderModel orderModel = new OrderModel();
+        orderModel.setId(1L);
+        orderModel.setCustomerId(24L);
+        orderModel.setRestaurant(RestaurantFactoryDataTest.getRestaurant());
+        orderModel.setCreateAt(LocalDate.parse("2023-06-11"));
         orderModel.setDishes(getDishes());
 
         return orderModel;
