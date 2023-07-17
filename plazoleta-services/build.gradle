@@ -15,7 +15,7 @@ repositories {
 }
 
 ext {
-	springBootVersion = "2.7.3"
+	springBootVersion = "2.7.13"
 	mapstructVersion = "1.5.2.Final"
 	lombokVersion = "1.18.24"
 	lombokMapstructBindingVersion = "0.2.0"
@@ -31,6 +31,10 @@ dependencies {
 	testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
 
 	runtimeOnly "mysql:mysql-connector-java:${mySqlConnectorVersion}"
+	//implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-aws', version: '2.2.6.RELEASE'
+	implementation 'io.awspring.cloud:spring-cloud-aws:2.3.0'
+	implementation 'io.awspring.cloud:spring-cloud-starter-aws-parameter-store-config:2.4.2'
+
 
 	implementation "org.mapstruct:mapstruct:${mapstructVersion}"
 	compileOnly "org.projectlombok:lombok:${lombokVersion}"
@@ -40,9 +44,10 @@ dependencies {
 
 	implementation "org.springdoc:springdoc-openapi-ui:${openApiVersion}"
 	implementation "org.springdoc:springdoc-openapi-webflux-ui:${openApiVersion}"
-	//implementation 'org.springdoc:springdoc-openapi-security:1.6.11'
+
 
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.4'
+	implementation group: 'com.nimbusds', name: 'nimbus-jose-jwt', version: '2.10.1'
 
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
